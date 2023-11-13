@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+    <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <title>Tigger ♫ </title>
+</head>
+<style>
+    @font-face { font-family: ubuntu; src: url(/fonts/Ubuntu-Title.ttf) } 
+</style>
+<body onload="startTime()">
+    <wrapper>
+        <div class="container">
+            <header class="top-row">
+                <div class="task-container">
+                    <button onclick="toggleTaskMenu()" class="btn" id="task-btn">task</button>
+                </div>
+                <div>
+                    <h1 id="branding">tigger</h1>
+                </div>
+                <div>
+                    <img src="img/unknown_profile_icon.png" id="profile-icon">
+                    <img src="img/Calendar-icon.png" id="calendar-icon">
+                </div>
+
+                <div id="calendar-container" class="calendar-container">
+                    <h1>Calendar</h1>
+                    <div class="calendar-content" id="calendarContent">
+                         <!-- JavaScript will populate this div with the calendar, so need of more code here. -->
+                    </div>
+                </div>
+
+                <nav>
+                    <h1 id="time"></h1>  
+                </nav>
+            </header>
+            <section class="quotebox">
+                <div>
+                    <h1 id= "quote"></h1>
+                </div>
+            </section>
+            <section class= "hero">
+                <div>
+                    <img src= img/resttigger.png class="frog-bg">
+                    
+                </div>
+                
+            </section>
+
+            <section class= bottom-row>
+                
+            <div class="mus-box">
+                <div class="music-container">
+                    <div class="music-info">
+                        <h4 id= "title"> ♫ Comfy vibes</h4>
+                        <div class= "progress-container">
+                            <div class="progress"></div>
+                        </div>
+                    </div>
+
+                    <audio src="audio/Foreverland.mp3" id="audio"></audio> <!--Add in audio later-->
+
+                    <div class= "navigation">
+                        <button id="prev" class="action-btn">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button id="play" class="action-btn action-btn-big">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button id="next" class="action-btn">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                        <div>
+                            <img src="img/lightbulb.png" id="icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filler">
+            </div>
+
+            <div class="mov-container">
+                <button onclick= "loadQuote()" class= "btn" id= "mov-btn">motivation!</button>
+            </div>
+
+            <div class="pom-container">
+                <button onclick= "on()" class= "btn" id= "pom-btn">pomodoro</button>
+            </div>
+            <div></div>
+            </section>
+            <div id= pom-timer>
+                <i id= "exit" class="fas fa-times" onclick="closePomTimer()"></i>
+                <h4 id="phrase">Time for Work!</h4>
+                <h1 id= "countdown">25:00</h1>
+                <div class= "pom-btn">
+                    <i id= "pom-play" class="fas fa-play-circle" onclick="playcountdown()"></i>
+                    <i id= "pom-pause" class="fas fa-pause-circle" onclick= "pausecountdown()"></i>
+                </div>
+                <button id= study-btn onclick= playStudy()>Study!</button>
+                <button id= break-btn onclick= playBreak()>break!</button>
+            </div>
+            <div class="form-box">
+                <i id="close-form" class="fas fa-times" onclick="closeForm()"></i>
+                <h1 id="titles">Sign Up</h1>
+                <form>
+                    <div class="input-group">
+                        <div class="input-field" id="nameField"> 
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" placeholder="Name">
+                        </div>
+            
+                        <div class="input-field">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" placeholder="Email">
+                        </div>
+            
+                        <div class="input-field">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="password" placeholder="Password">
+                        </div>
+                        <p>Lost password <a href="#">Click Here!</a></p>
+                    </div>
+                    <div class="btn-field">
+                        <button type="button" id="signupBtn">Sign up</button> 
+                        <button type="button" id="signinBtn" class="disable">Sign in</button> 
+                    </div>
+                </form>
+            </div>
+            <div class="task-menu">
+                <i id="close-task-menu" class="fas fa-times" onclick="closeTaskMenu()"></i>
+                <h1>to-do list</h1>
+                <ul id="task-list">
+                    <!-- Task items will be added dynamically here -->
+                    <li>
+                        <input type="checkbox" id="task-1">
+                        <label for="task-1">Your Task Text Here</label>
+                        <i class="fas fa-trash-alt" onclick="deleteTask(this)"></i>
+                    </li>
+                </ul>
+                <div class="add-task">
+                    <input type="text" id="new-task" placeholder="Add a new task">
+                    <button onclick="addTask()">Add</button>
+                </div>
+            </div>
+            <script>
+                document.getElementById('calendar-icon').addEventListener('click', () => {
+                    const calendarContainer = document.getElementById('calendar-container');
+                    calendarContainer.style.display = calendarContainer.style.display === 'none' ? 'block' : 'none';
+                });
+            </script>
+    </wrapper>
+    <script>
+        var icon = document.getElementById("icon");
+        icon.onclick= function () {
+        document.body.classList.toggle("dark-theme");
+        if (document.body.classList.contains("dark-theme")) { icon.src="img/bulb.png";
+        }else{
+        icon.src="img/lightbulb.png";
+        }
+        }
+        </script>
+    <script src="script.js"></script>  
+    <script>
+        let signupBtn = document.getElementById("signupBtn");
+        let signinBtn = document.getElementById("signinBtn");
+        let nameField = document.getElementById("nameField");
+        let titles = document.getElementById("titles");
+    
+        signinBtn.onclick = function() {
+            nameField.style.maxHeight = "0";
+            titles.innerHTML = "Sign In";
+            signupBtn.classList.add("disable");
+            signinBtn.classList.remove("disable");
+        }
+    
+        signupBtn.onclick = function() {
+            nameField.style.maxHeight = "60px";
+            titles.innerHTML = "Sign Up";
+            signupBtn.classList.remove("disable");
+            signinBtn.classList.add("disable");
+        }
+    </script>
+</body>
+</html>
